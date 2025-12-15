@@ -1,4 +1,4 @@
-// script.js
+// 再デプロイ
 
 document.addEventListener('DOMContentLoaded', () => {
     const roleTableBody = document.getElementById('roleTableBody');
