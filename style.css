@@ -16,11 +16,22 @@ body {
     border-radius: 10px;
 }
 
+/* ---------------------------------- */
+/* 🌟 モバイル表示の改善 (基本) 🌟 */
+/* ---------------------------------- */
 h1 {
+    font-size: 1.8em; /* スマートフォンで大きすぎないように調整 */
     color: #007bff;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
     margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 1.4em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 /* 入力グループの共通スタイル */
@@ -32,28 +43,48 @@ h1 {
     background-color: #fafafa;
 }
 
-/* テーブルスタイル */
+/* ボタンと入力フィールドの共通スタイル */
+input[type="number"], input[type="text"], select {
+    width: 100%; /* 親要素に合わせて幅いっぱいにする */
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em; /* モバイルで小さすぎないように */
+}
+
+/* ---------------------------------- */
+/* 役割設定テーブルの改善 (モバイル対応) */
+/* ---------------------------------- */
 table { 
     width: 100%; 
     border-collapse: separate; 
     border-spacing: 0;
     margin-top: 15px;
+    font-size: 0.9em; /* テーブル内の文字を少し小さく */
 }
 
 th, td { 
-    padding: 10px; 
+    padding: 8px; 
     text-align: left; 
     border-bottom: 1px solid #eee;
+    vertical-align: middle;
 }
 
-/* 入力フィールド */
-input[type="number"], input[type="text"], select {
-    width: calc(100% - 10px); /* 調整 */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+/* テーブル内の入力フィールドの幅を調整 */
+.setting-area td input[type="number"], 
+.setting-area td input[type="text"] {
+    padding: 6px;
+    margin: 0;
 }
+
+/* テーブルヘッダーの幅指定（PC向けにバランス調整） */
+.setting-area thead th:nth-child(1) { width: 40%; } /* 役割名 */
+.setting-area thead th:nth-child(2) { width: 25%; } /* 重み係数 */
+.setting-area thead th:nth-child(3) { width: 20%; } /* 人数 */
+.setting-area thead th:nth-child(4) { width: 15%; } /* アクション */
+
 
 /* ボタン共通スタイル */
 .action-button {
@@ -80,7 +111,9 @@ input[type="number"], input[type="text"], select {
 .delete-role-button {
     background-color: #dc3545;
     color: white;
-    padding: 5px 10px;
+    padding: 5px 8px;
+    font-size: 0.9em;
+    white-space: nowrap; /* ボタン内のテキストが改行されないように */
 }
 
 .delete-role-button:hover {
@@ -103,15 +136,16 @@ input[type="number"], input[type="text"], select {
 }
 
 .result-item strong {
-    display: inline-block;
-    min-width: 150px;
+    display: block; /* モバイルで項目名と金額を縦に並べる */
+    margin-bottom: 5px;
     color: #333;
+    font-size: 1.1em;
 }
 
 .result-item span {
-    font-size: 1.1em;
+    font-size: 1.2em; /* 金額を強調 */
     font-weight: bold;
-    color: #28a745; /* 支払額を緑色に */
+    color: #28a745; 
 }
 
 /* 調整金の強調表示 */
@@ -121,4 +155,24 @@ input[type="number"], input[type="text"], select {
     border: 2px dashed #dc3545;
     background-color: #ffebeb;
     color: #dc3545;
+    font-size: 1.3em;
+}
+
+/* ---------------------------------- */
+/* 🌟 PC/タブレット向けの調整 (Min-width: 600px以上) 🌟 */
+/* ---------------------------------- */
+@media (min-width: 600px) {
+    .container {
+        padding: 40px;
+    }
+
+    h1 {
+        font-size: 2.2em; /* PCでは見出しを大きく戻す */
+    }
+
+    .result-item strong {
+        display: inline-block; /* PCでは項目名と金額を横に並べる */
+        min-width: 150px;
+        margin-bottom: 0;
+    }
 }
