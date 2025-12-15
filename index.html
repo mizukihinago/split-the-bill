@@ -29,11 +29,14 @@
 
         <div class="setting-area">
             <h2>役割と人数設定</h2>
+            <p class="weight-explanation">
+                **重み** は、基準（1.0）に対する支払額の割合です。（例：1.2なら2割増し、0.8なら2割引き）
+            </p>
             <table>
                 <thead>
                     <tr>
                         <th style="width: 40%;">役割名</th>
-                        <th style="width: 25%;">重み係数 (1.0基準)</th>
+                        <th style="width: 25%;">重み</th> 
                         <th style="width: 20%;">人数</th>
                         <th style="width: 15%;"></th>
                     </tr>
@@ -50,6 +53,9 @@
             <h2>計算結果</h2>
             <div id="resultOutput">
                 </div>
+            <button id="copyResultButton" class="action-button secondary-button" style="display: none;">
+                結果をクリップボードにコピー
+            </button>
         </div>
     </div>
 
