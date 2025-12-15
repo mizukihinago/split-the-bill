@@ -20,7 +20,7 @@ body {
 /* 🌟 モバイル表示の改善 (基本) 🌟 */
 /* ---------------------------------- */
 h1 {
-    font-size: 1.8em; /* スマートフォンで大きすぎないように調整 */
+    font-size: 1.8em; 
     color: #007bff;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
@@ -43,9 +43,23 @@ h2 {
     background-color: #fafafa;
 }
 
+/* 役割設定の説明文のスタイル */
+.weight-explanation {
+    font-size: 0.9em;
+    color: #555;
+    background-color: #fff3cd; 
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.weight-explanation strong {
+    font-weight: bold;
+    color: #856404;
+}
+
 /* ボタンと入力フィールドの共通スタイル */
 input[type="number"], input[type="text"], select {
-    width: 100%; /* 親要素に合わせて幅いっぱいにする */
+    width: 100%; 
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
@@ -79,12 +93,12 @@ th, td {
     margin: 0;
 }
 
-/* 数値入力欄（重み係数、人数）の幅をコンパクトに制限 */
+/* 数値入力欄（重み、人数）の幅をコンパクトに制限 */
 .setting-area td input[type="number"] {
     width: 100%;
     max-width: 80px; 
     text-align: center;
-    display: block; /* ブロック要素にして max-width を確実に適用 */
+    display: block; 
 }
 
 /* 役割名（テキスト）は制限を解除し、柔軟な幅を維持 */
@@ -95,7 +109,7 @@ th, td {
 
 /* テーブルヘッダーの幅指定（PC向けにバランス調整） */
 .setting-area thead th:nth-child(1) { width: 40%; } /* 役割名 */
-.setting-area thead th:nth-child(2) { width: 25%; } /* 重み係数 */
+.setting-area thead th:nth-child(2) { width: 25%; } /* 重み */
 .setting-area thead th:nth-child(3) { width: 20%; } /* 人数 */
 .setting-area thead th:nth-child(4) { width: 15%; } /* アクション */
 
@@ -120,6 +134,18 @@ th, td {
 
 .primary-button:hover {
     background-color: #1e7e34;
+}
+
+/* 🌟 コピーボタン用スタイル 🌟 */
+.secondary-button {
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.secondary-button:hover {
+    background-color: #0056b3;
 }
 
 .delete-role-button {
@@ -150,7 +176,7 @@ th, td {
 }
 
 .result-item strong {
-    display: block; /* モバイルで項目名と金額を縦に並べる */
+    display: block; 
     margin-bottom: 5px;
     color: #333;
     font-size: 1.1em;
@@ -185,7 +211,7 @@ th, td {
     }
 
     .result-item strong {
-        display: inline-block; /* PCでは項目名と金額を横に並べる */
+        display: inline-block; 
         min-width: 150px;
         margin-bottom: 0;
     }
