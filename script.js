@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nameInput.type = 'text';
         nameInput.className = 'role-name-input';
         nameInput.value = finalRoleName;
-        nameInput.addEventListener('change', saveRolesToLocalStorage); // 🌟 変更時に保存
+        nameInput.addEventListener('change', saveRolesToLocalStorage); // 変更時に保存
         newRow.insertCell().appendChild(nameInput);
         
         // 重み係数 (入力変更時に自動保存をトリガー)
