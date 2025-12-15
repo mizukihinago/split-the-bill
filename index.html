@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>役割ベースの重みづけ割り勘計算機</title>
+    <style>
+        /* 2. CSSスタイルはここに記述するか、別ファイルにリンク */
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .input-group, .setting-area { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        #results { margin-top: 30px; border-top: 2px solid #333; padding-top: 20px; }
+        .result-item { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚖️ 役割ベースの割り勘計算</h1>
+
+        <div class="input-group">
+            <h2>全体設定</h2>
+            <label for="totalAmount">合計金額 (円):</label>
+            <input type="number" id="totalAmount" value="10000" min="1" required><br><br>
+
+            <label for="roundUnit">丸め単位 (円):</label>
+            <select id="roundUnit">
+                <option value="1">1円</option>
+                <option value="10">10円</option>
+                <option value="100" selected>100円</option>
+            </select>
+            <p style="font-size: 0.8em; color: #666;">（選択単位で切り上げ、超過分は支払い代表者へ）</p>
+        </div>
+
+        <div class="setting-area">
+            <h2>役割と人数設定</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>役割名</th>
+                        <th>重み係数 (1.0基準)</th>
+                        <th>人数</th>
+                        <th>アクション</th>
+                    </tr>
+                </thead>
+                <tbody id="roleTableBody">
+                    </tbody>
+            </table>
+            <button id="addRoleButton">役割を追加</button>
+        </div>
+
+        <button id="calculateButton">計算実行</button>
+
+        <div id="results">
+            <h2>計算結果</h2>
+            <div id="resultOutput">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // 3. JavaScriptコードはここに記述
+        // roleTableBodyへの行追加、計算ロジック、結果表示ロジック
+    </script>
+</body>
+</html>
