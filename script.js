@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const roleTableBody = document.getElementById('roleTableBody');
     const addRoleButton = document.getElementById('addRoleButton');
     const calculateButton = document.getElementById('calculateButton');
-    // 🌟 1. コピーボタンの要素を取得
+    //1. コピーボタンの要素を取得
     const copyResultButton = document.getElementById('copyResultButton');
 
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     calculateButton.addEventListener('click', calculateSplit);
     
-    // 🌟 2. コピーボタンのイベントリスナーを追加
+    //2. コピーボタンのイベントリスナーを追加
     copyResultButton.addEventListener('click', copyResultsToClipboard);
 
 
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tempIndividualPayment = unitPricePerWeight * role.weight;
             const finalIndividualPayment = Math.ceil(tempIndividualPayment / roundUnit) * roundUnit;
             
-            // 🌟 結果データを役割オブジェクトに保存
+            //結果データを役割オブジェクトに保存
             role.finalIndividualPayment = finalIndividualPayment; 
 
             totalCollectedAmount += finalIndividualPayment * role.count;
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 5. 超過額（調整金）の計算と表示
         const excessAmount = totalCollectedAmount - totalAmount;
         
-        // 🌟 結果をグローバル/セッションストレージに一時保存 (コピー機能で使用)
+        //結果をグローバル/セッションストレージに一時保存 (コピー機能で使用)
         sessionStorage.setItem('calculatedResults', JSON.stringify({
             roles: rolesData,
             totalAmount: totalAmount,
@@ -143,12 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resultOutput.innerHTML = resultHTML;
         
-        // 🌟 6. 計算成功後、コピーボタンを表示
+        //6. 計算成功後、コピーボタンを表示
         copyResultButton.style.display = 'block'; 
     }
     
     
-    // 🌟 コピー機能のメインロジック 🌟
+    //コピー機能のメインロジック
     async function copyResultsToClipboard() {
         const resultText = generateResultText(); // 整形されたテキストを取得
         
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // 🌟 コピー用のテキストを整形する関数 🌟
+    //コピー用のテキストを整形する関数
     function generateResultText() {
         const data = JSON.parse(sessionStorage.getItem('calculatedResults'));
         if (!data) return "計算結果が見つかりません。先に計算を実行してください。";
@@ -185,8 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         text += "\n--------------------------\n";
-        text += `💰 全員の支払合計: ¥${data.totalCollectedAmount.toLocaleString()}\n`;
-        text += `✨ 代表者の調整金: ¥${data.excessAmount.toLocaleString()} (切り上げ分)\n`;
+        text += `全員の支払合計: ¥${data.totalCollectedAmount.toLocaleString()}\n`;
+        text += `代表者の調整金: ¥${data.excessAmount.toLocaleString()} (切り上げ分)\n`;
         text += "--------------------------\n";
 
         return text;
