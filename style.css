@@ -51,18 +51,18 @@ input[type="number"], input[type="text"], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 1em; /* モバイルで小さすぎないように */
+    font-size: 1em; 
 }
 
 /* ---------------------------------- */
-/* 役割設定テーブルの改善 (モバイル対応) */
+/* 役割設定テーブルの改善 (モバイル対応と幅制限) */
 /* ---------------------------------- */
 table { 
     width: 100%; 
     border-collapse: separate; 
     border-spacing: 0;
     margin-top: 15px;
-    font-size: 0.9em; /* テーブル内の文字を少し小さく */
+    font-size: 0.9em; 
 }
 
 th, td { 
@@ -77,6 +77,20 @@ th, td {
 .setting-area td input[type="text"] {
     padding: 6px;
     margin: 0;
+}
+
+/* 数値入力欄（重み係数、人数）の幅をコンパクトに制限 */
+.setting-area td input[type="number"] {
+    width: 100%;
+    max-width: 80px; 
+    text-align: center;
+    display: block; /* ブロック要素にして max-width を確実に適用 */
+}
+
+/* 役割名（テキスト）は制限を解除し、柔軟な幅を維持 */
+.setting-area td input[type="text"] {
+    max-width: none; 
+    text-align: left;
 }
 
 /* テーブルヘッダーの幅指定（PC向けにバランス調整） */
@@ -113,7 +127,7 @@ th, td {
     color: white;
     padding: 5px 8px;
     font-size: 0.9em;
-    white-space: nowrap; /* ボタン内のテキストが改行されないように */
+    white-space: nowrap; 
 }
 
 .delete-role-button:hover {
@@ -143,7 +157,7 @@ th, td {
 }
 
 .result-item span {
-    font-size: 1.2em; /* 金額を強調 */
+    font-size: 1.2em; 
     font-weight: bold;
     color: #28a745; 
 }
@@ -167,7 +181,7 @@ th, td {
     }
 
     h1 {
-        font-size: 2.2em; /* PCでは見出しを大きく戻す */
+        font-size: 2.2em; 
     }
 
     .result-item strong {
