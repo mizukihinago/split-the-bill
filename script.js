@@ -68,37 +68,64 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalAmount = parseFloat(document.getElementById('totalAmount').value);
         const roundUnit = parseInt(document.getElementById('roundUnit').value);
         const resultOutput = document.getElementById('resultOutput');
-
-        if (isNaN(totalAmount) || totalAmount <= 0) {
-            resultOutput.innerHTML = `<p style="color: red;">有効な合計金額を入力してください。</p>`;
-            return;
-        }
-
-        // 2. 役割データ（Roles）の収集と総重みの計算
+        
+        // 役割データを取得し、不正な値がないかチェック
         let totalWeight = 0;
         const rolesData = [];
+        let validationError = null; // エラーメッセージを格納
 
-        document.querySelectorAll('#roleTableBody tr').forEach(row => {
-            const weight = parseFloat(row.querySelector('.weight-input').value);
-            const count = parseInt(row.querySelector('.count-input').value);
-            
-            if (weight > 0 && count > 0) {
-                // データを保存する際に、未定義の支払い額や集金総額のプロパティを初期化
+        // **1. 全体設定の検証**
+        if (isNaN(totalAmount) || totalAmount <= 0) {
+            validationError = "合計金額に有効な金額を入力してください。";
+        }
+        
+        if (!validationError) {
+            // **2. 役割データの検証と収集**
+            document.querySelectorAll('#roleTableBody tr').forEach(row => {
+                const name = row.querySelector('.role-name-input').value.trim();
+                const weight = parseFloat(row.querySelector('.weight-input').value);
+                const count = parseInt(row.querySelector('.count-input').value);
+
+                // 役割名の検証
+                if (!name) {
+                    validationError = "役割名が空欄の行があります。入力してください。";
+                }
+                // 重み係数の検証
+                if (isNaN(weight) || weight < 0.1) {
+                    validationError = "重みに0.1以上の有効な数値を入力してください。";
+                }
+                // 人数の検証
+                if (isNaN(count) || count < 1) {
+                    validationError = "人数に1以上の有効な数値を入力してください。";
+                }
+                
+                if (validationError) return; // エラーが見つかったら以降の処理をスキップ
+                
+                // 検証が成功した場合のみデータに追加
                 rolesData.push({
-                    name: row.querySelector('.role-name-input').value || '役割名なし',
+                    name: name,
                     weight: weight,
                     count: count,
-                    finalIndividualPayment: 0, // 結果保存用
+                    finalIndividualPayment: 0,
                 });
                 totalWeight += weight * count;
-            }
-        });
-
-        if (totalWeight === 0) {
-            resultOutput.innerHTML = `<p style="color: red;">役割と人数を正しく入力してください。</p>`;
+            });
+        }
+        
+        // **3. 検証結果の判定**
+        if (validationError) {
+            resultOutput.innerHTML = `<p style="color: red;">⚠️ ${validationError}</p>`;
             return;
         }
 
+        if (totalWeight === 0) {
+             resultOutput.innerHTML = `<p style="color: red;">役割と人数を正しく入力してください（重みの合計が0です）。</p>`;
+             return;
+        }
+
+
+        // (以下、計算ロジック本体)
+        
         // 3. 1重みあたりの金額を計算
         const unitPricePerWeight = totalAmount / totalWeight;
         
