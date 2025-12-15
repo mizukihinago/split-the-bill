@@ -7,17 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 役割の動的な追加・削除機能 ---
 
+    // 役割名の自動生成に使用するインデックス（既存の行数 + 1からスタート）
+    let roleIndex = 0; 
+
     // 新しい役割行を追加する関数
     function addRoleRow(roleName = '', weight = 1.0, count = 1) {
+        // ロールインデックスをインクリメント
+        roleIndex++; 
+        
+        // 役割名が空の場合、自動生成する
+        const finalRoleName = roleName || `hoge${roleIndex}`;
+        
         const newRow = roleTableBody.insertRow();
         
         // 役割名
-        newRow.insertCell().innerHTML = `<input type="text" class="role-name-input" value="${roleName}">`;
+        newRow.insertCell().innerHTML = `<input type="text" class="role-name-input" value="${finalRoleName}">`;
         
-        // 重み係数 (0.1刻みで変更可能)
+        // 重み係数 (初期値 1.0)
         newRow.insertCell().innerHTML = `<input type="number" class="weight-input" value="${weight}" step="0.1" min="0.1">`;
         
-        // 人数
+        // 人数 (初期値 1)
         newRow.insertCell().innerHTML = `<input type="number" class="count-input" value="${count}" min="1">`;
         
         // 削除ボタン
@@ -28,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.addEventListener('click', () => {
             if (roleTableBody.rows.length > 1) { // 最後の1行は削除不可とする
                 newRow.remove();
+                // 行削除時にインデックスは変更しない（一度使ったhoge番号は欠番とする）
             } else {
                 alert("役割は最低1つ必要です。");
             }
@@ -37,12 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 役割追加ボタンのイベントリスナー
     addRoleButton.addEventListener('click', () => {
-        addRoleRow('', 1.0, 1);
+        addRoleRow(); // 引数なしで呼び出し、デフォルト値 (1.0, 1) を適用
     });
 
-    // 初期行の追加 (アプリ起動時に表示される役割)
-    addRoleRow('一般 (基準)', 1.0, 3);
-    addRoleRow('幹事 (代表者)', 1.2, 1);
+    // 初期行の追加 (アプリ起動時に表示される行)
+    addRoleRow('hoge1', 1.0, 1);
 
 
     // --- メインの計算ロジック ---
@@ -84,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 3. 1重みあたりの金額を計算
-        // 浮動小数点誤差を避けるため、一旦金額を整数（セントなど）に変換する処理を念頭に置くが、ここではシンプルに計算
         const unitPricePerWeight = totalAmount / totalWeight;
         
         let totalCollectedAmount = 0; // 集金総額
@@ -92,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4. 各役割の個人の支払額を計算し、切り上げ丸め処理を適用
         rolesData.forEach(role => {
-            // A. 個人の仮支払額 (例: 2380.95238...)
+            // A. 個人の仮支払額 
             const tempIndividualPayment = unitPricePerWeight * role.weight;
 
             // B. 指定単位で切り上げ（例: 100円単位）
@@ -106,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultHTML += `<div class="result-item">
                 <strong>${role.name}</strong> (${role.count}人): 1人あたり 
                 <span>¥${finalIndividualPayment.toLocaleString()}</span>
-                <span style="font-size: 0.9em; color: #6c757d;"> (合計: ¥${(finalIndividualPayment * role.count).toLocaleString()})</span>
+                <span style="font-size: 0.9em; color: #6c757d;"> (グループ合計: ¥${(finalIndividualPayment * role.count).toLocaleString()})</span>
             </div>`;
         });
 
