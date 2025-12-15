@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = JSON.parse(sessionStorage.getItem('calculatedResults'));
         if (!data) return "計算結果が見つかりません。先に計算を実行してください。";
 
-        let text = "--- 役割ベース割り勘結果 ---\n\n";
+        let text = "--- 重みづけを考慮した割り勘結果 ---\n\n";
         text += `元の合計金額: ¥${data.totalAmount.toLocaleString()}\n\n`;
         text += "--- 個別支払額 ---\n";
 
